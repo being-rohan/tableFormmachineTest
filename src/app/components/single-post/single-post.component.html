@@ -1,0 +1,72 @@
+  <!-- Action Buttons -->
+  <div class="button-container float-right">
+    <button class="btn btn-primary" routerLink="edit">Edit</button>
+
+    <button class="btn btn-danger"(click)="ondelete()">Delete</button>
+</div>
+
+
+
+
+<div class="table-container">
+    <h1>Client Information</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>{{postObj.name}}</td>
+            </tr>
+            <tr>
+                <td><strong>Client Name</strong></td>
+                <td>{{postObj.client}}</td>
+            </tr>
+            <tr>
+                <td><strong>Country</strong></td>
+                <td>{{postObj.country}}</td>
+            </tr>
+            <tr>
+                <td><strong>Country Code</strong></td>
+                <td>{{postObj.code}}</td>
+            </tr>
+            <tr>
+                <td><strong>State</strong></td>
+                <td>{{postObj.state}}</td>
+            </tr>
+            <tr>
+                <td><strong>City</strong></td>
+                <td>{{postObj.city}}</td>
+            </tr>
+            <tr>
+                <td><strong>Pincode</strong></td>
+                <td>{{postObj.pincode}}</td>
+            </tr>
+            <tr>
+                <td><strong>Mobile No</strong></td>
+                <td>{{postObj.mobileno}}</td>
+            </tr>
+            <tr>
+                <td><strong>Gst No</strong></td>
+                <td>{{postObj.gstno}}</td>
+            </tr>
+            <tr>
+                <td><strong>Pan No</strong></td>
+                <td>{{postObj.panno}}</td>
+            </tr>
+            <tr>
+                <td><strong>Email</strong></td>
+                <td>{{postObj.email}}</td>
+            </tr>
+            <tr>
+                <td><strong>Address</strong></td>
+                <td>{{postObj.address}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+  

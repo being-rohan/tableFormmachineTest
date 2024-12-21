@@ -1,0 +1,299 @@
+<div class="container mt-4">
+  <h2>{{!isEditMode ? 'AddPost': ' Update'}}</h2>
+
+  <div class="card mb-2">
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-10 offset-md-1">
+          <div class="text-center bg-dark mb-4">
+            <h3 class="p-4 text-white">Submission Form</h3>
+          </div>
+          <strong>
+            <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+              <div class="form-group">
+                <label for="name">name</label>
+                <input type="text" formControlName="name" class="form-control">
+                <span class="text-danger" *ngIf="f['name'].touched && f['name'].hasError('required')">
+                  name is required field.
+                </span>
+                <ng-container *ngIf="f['name'].dirty">
+                  <span class="text-danger" *ngIf="f['name'].hasError('pattern')">
+                    Please Enter Valid name.
+                  </span>
+                  <!-- <span class="text-danger" *ngIf="f['name'].hasError('minlength')">
+                    name length should be
+                    {{getname.errors?.['minlength'].requiredLength}}
+                    and actual length is
+                    {{getname.errors?.['minlength'].actualLength}}
+                  </span> -->
+                  <span class="text-danger" *ngIf="f['name'].hasError('maxlength')">
+                    the maxlength of name should be
+                    {{getname.errors?.['maxlength'].requiredLength}}
+                    and actual length is
+                    {{getname.errors?.['maxlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['name'].hasError('noSpaceErr')">
+                    {{getname.errors?.['noSpaceErr']}}
+                  </span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <label for="client">client</label>
+                <input type="text" formControlName="client" class="form-control">
+                <span class="text-danger" *ngIf="f['client'].touched && f['client'].hasError('required')">
+                  client is required field.
+                </span>
+                <ng-container *ngIf="f['client'].dirty">
+                  <span class="text-danger" *ngIf="f['client'].hasError('pattern')">
+                    Please Enter Valid client.
+                  </span>
+                  <!-- <span class="text-danger" *ngIf="f['client'].hasError('minlength')">
+                    client length should be
+                    {{getclient.errors?.['minlength'].requiredLength}}
+                    and actual length is
+                    {{getclient.errors?.['minlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['client'].hasError('maxlength')">
+                    the maxlength of client should be
+                    {{getclient.errors?.['maxlength'].requiredLength}}
+                    and actual length is
+                    {{getclient.errors?.['maxlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['client'].hasError('noSpaceErr')">
+                    {{getclient.errors?.['noSpaceErr']}}
+                  </span> -->
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <label for="code">code</label>
+                <input type="text" id="code" formControlName="code" class="form-control">
+                <span class="text-danger" *ngIf="f['code'].touched && f['code'].hasError('required')">
+                  code is required field.
+                </span>
+                <span class="text-danger" *ngIf="f['code'].dirty && f['code'].hasError('empError')">
+                  {{f['code'].errors?.['empError']}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="email">email</label>
+                <input type="text" formControlName="email" class="form-control">
+                <span class="text-danger" *ngIf="f['email'].touched && f['email'].hasError('required')">
+                  email is a required field.
+                </span>
+                <span class="text-danger" *ngIf="f['email'].dirty && f['email'].hasError('pattern')">
+                  Plz enter valid email.
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="mobileno">MobileNo</label>
+                <input type="text" id="mobileno" formControlName="mobileno" class="form-control">
+                <span class="text-danger" *ngIf="f['mobileno'].touched && f['mobileno'].hasError('required')">
+                  Emp Id is required field.
+                </span>
+                <span class="text-danger" *ngIf="f['mobileno'].dirty && f['mobileno'].hasError('empError')">
+                  {{f['mobileno'].errors?.['empError']}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="gstno">gstno</label>
+                <input type="text" id="gstno" formControlName="gstno" class="form-control">
+                <span class="text-danger" *ngIf="f['gstno'].touched && f['gstno'].hasError('required')">
+                  gstno is required field.
+                </span>
+                <span class="text-danger" *ngIf="f['gstno'].dirty && f['gstno'].hasError('empError')">
+                  {{f['gstno'].errors?.['empError']}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="panno">panno</label>
+                <input type="text" id="panno" formControlName="panno" class="form-control">
+                <span class="text-danger" *ngIf="f['panno'].touched && f['panno'].hasError('required')">
+                  panno is required field.
+                </span>
+                <span class="text-danger" *ngIf="f['panno'].dirty && f['panno'].hasError('empError')">
+                  {{f['panno'].errors?.['empError']}}
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label for="female">
+                  <input type="radio" formControlName="gender" name="gender" value="female" id="female">Female
+                </label>
+                <label for="male">
+                  <input type="radio"  formControlName="gender" name="gender" value="male" id="male">Male
+                </label>
+                <label for="other">
+                  <input type="radio" formControlName="gender" name="gender" value="other" id="other">Others
+                </label>
+              </div>
+              <div formArrayName="skills">
+                <h4>Skills :-</h4>
+                <div class="row mb-4" *ngFor="let skill of skillsformArr.controls; let i = index">
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" [formControlName]="i">
+                    <span *ngIf='skill.touched && skill.hasError("required")'>
+                      <strong>Skills is the required field</strong>
+                    </span>
+                  </div>
+                  <div class="col-md-3" *ngIf="i > 0">
+                    <button class="btn btn-outline-danger" type="button" (click)="onremoveskill(i)">
+                      <strong>Remove</strong>
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <button class="btn btn-outline-primary mb-3" [disabled]="skillsformArr.length >= 5"
+                      (click)="onaddskill()" type="button"><strong>Add Skill</strong>
+                    </button>
+                    <p class="alert alert-info " *ngIf="skillsformArr.length<5">
+                      you can add only 5 skills
+                    </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+
+              <div class="form-group">
+                <label for="address">address</label>
+                <input type="text" formControlName="address" class="form-control">
+                <span class="text-danger" *ngIf="f['address'].touched && f['address'].hasError('required')">
+              <strong>    address is required field.</strong>
+                </span>
+                <ng-container *ngIf="f['address'].dirty">
+                  <span class="text-danger" *ngIf="f['address'].hasError('pattern')">
+                    Please Enter Valid address.
+                  </span>
+                  <span class="text-danger" *ngIf="f['address'].hasError('minlength')">
+                    address length should be
+                    {{getaddress.errors?.['minlength'].requiredLength}}
+                    and actual length is
+                    {{getaddress.errors?.['minlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['address'].hasError('maxlength')">
+                    the maxlength of address should be
+                    {{getaddress.errors?.['maxlength'].requiredLength}}
+                    and actual length is
+                    {{getaddress.errors?.['maxlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['address'].hasError('noSpaceErr')">
+                    {{getaddress.errors?.['noSpaceErr']}}
+                  </span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <label for="state">state</label>
+                <input type="text" formControlName="state" class="form-control">
+                <span class="text-danger" *ngIf="f['state'].touched && f['state'].hasError('required')">
+              <strong>    state is required field.</strong>
+                </span>
+                <ng-container *ngIf="f['state'].dirty">
+                  <span class="text-danger" *ngIf="f['state'].hasError('pattern')">
+                    Please Enter Valid state.
+                  </span>
+                  <span class="text-danger" *ngIf="f['state'].hasError('minlength')">
+                    state length should be
+                    {{getstate.errors?.['minlength'].requiredLength}}
+                    and actual length is
+                    {{getstate.errors?.['minlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['state'].hasError('maxlength')">
+                    the maxlength of state should be
+                    {{getstate.errors?.['maxlength'].requiredLength}}
+                    and actual length is
+                    {{getstate.errors?.['maxlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['state'].hasError('noSpaceErr')">
+                    {{getstate.errors?.['noSpaceErr']}}
+                  </span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <label for="pincode">pincode</label>
+                <input type="text" formControlName="pincode" class="form-control">
+                <span class="text-danger" *ngIf="f['pincode'].touched && f['pincode'].hasError('required')">
+              <strong>    pincode is required field.</strong>
+                </span>
+                <ng-container *ngIf="f['pincode'].dirty">
+                  <span class="text-danger" *ngIf="f['pincode'].hasError('pattern')">
+                    Please Enter Valid pincode.
+                  </span>
+                  <span class="text-danger" *ngIf="f['pincode'].hasError('minlength')">
+                    pincode length should be
+                    {{getpincode.errors?.['minlength'].requiredLength}}
+                    and actual length is
+                    {{getpincode.errors?.['minlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['pincode'].hasError('maxlength')">
+                    the maxlength of pincode should be
+                    {{getpincode.errors?.['maxlength'].requiredLength}}
+                    and actual length is
+                    {{getpincode.errors?.['maxlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['pincode'].hasError('noSpaceErr')">
+                    {{getpincode.errors?.['noSpaceErr']}}
+                  </span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <label for="city">city</label>
+                <input type="text" formControlName="city" class="form-control">
+                <span class="text-danger" *ngIf="f['city'].touched && f['city'].hasError('required')">
+              <strong>    city is required field.</strong>
+                </span>
+                <ng-container *ngIf="f['city'].dirty">
+                  <span class="text-danger" *ngIf="f['city'].hasError('pattern')">
+                    Please Enter Valid city.
+                  </span>
+                  <span class="text-danger" *ngIf="f['city'].hasError('minlength')">
+                    city length should be
+                    {{getcity.errors?.['minlength'].requiredLength}}
+                    and actual length is
+                    {{getcity.errors?.['minlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['city'].hasError('maxlength')">
+                    the maxlength of city should be
+                    {{getcity.errors?.['maxlength'].requiredLength}}
+                    and actual length is
+                    {{getcity.errors?.['maxlength'].actualLength}}
+                  </span>
+                  <span class="text-danger" *ngIf="f['city'].hasError('noSpaceErr')">
+                    {{getcity.errors?.['noSpaceErr']}}
+                  </span>
+                </ng-container>
+              </div>
+             
+               
+                  <div class="form-group">
+                    <label>Country</label>
+                    <!-- <input type="text" formControlName="country" 
+                        class="form-control" placeholder="Country"> -->
+                    <select class="form-control" formControlName="country">
+                      <option value="">Select Country</option>
+                      <option [value]="con.Country" *ngFor="let con of CountryInfo">
+                        {{con.Country}}
+                      </option>
+                    </select>
+                  
+                    <span class="text-danger" *ngIf="f['country'].hasError('pattern')">
+                      Please Enter Valid city.
+                    </span>
+                    
+                   </div>
+
+
+           
+
+              <div class="text-right">
+                <button class="btn btn-primary" *ngIf="!isEditMode"  type="submit">AddPost</button>
+                <button class="btn btn-primary"*ngIf="isEditMode" (click)="onupdtae()"  type="button" >UpdatePost</button>
+
+              </div>
+            </form>
+
+          </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

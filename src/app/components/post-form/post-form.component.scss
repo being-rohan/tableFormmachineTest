@@ -1,0 +1,35 @@
+h2{
+    font-weight: 500px;
+    font-size: 29px;
+}
+.card{
+    border: 1 px solid;
+
+    background-color: aliceblue;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+span{
+    color: red;
+    
+    font-weight: 400;
+    
+}
+label{
+    text-transform: capitalize;
+    font-size: 18px;
+}
+.color-green{
+    color: green;
+}
+.form-control.ng-dirty.ng-invalid,
+.form-control.ng-touched.ng-invalid{
+    border: 2px solid red;
+}
+
+.form-control.ng-touched.ng-invalid{
+    border: 2px solid #14A44D;
+}
+.form-control:focus{
+    color: #495057 !important;
+    box-shadow: none;
+}
