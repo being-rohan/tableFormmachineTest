@@ -10,19 +10,19 @@ import { Itable } from '../interface/interface';
 export class EmployerService {
 
   constructor(private _http: HttpClient) { }
-  posturl = `${environment.baseurl}/users.json`;
+  empUrl = `${environment.baseurl}/users.json`;
 
 
   fetchproducts(): Observable<any> {
-    return this._http.get(this.posturl)
+    return this._http.get(this.empUrl)
       .pipe(
         map((res: any) => {
-          let postarr: Array<string> = [];
+          let empArr: Array<string> = [];
           for (const key in res) {
 
-            postarr.push({ ...res[key], id: key })
+            empArr.push({ ...res[key], id: key })
           }
-          return postarr
+          return empArr
         })
       );
   }
@@ -30,7 +30,7 @@ export class EmployerService {
 
 
   ceratepost(post: Itable): Observable<any> {
-    return this._http.post(this.posturl, post)
+    return this._http.post(this.empUrl, post)
   }
 
   singlePostFetch(id: string): Observable<any> {
