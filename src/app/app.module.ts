@@ -12,6 +12,7 @@ import { PostTableComponent } from './components/post-table/post-table.component
 import { SinglePostComponent } from './components/single-post/single-post.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { MatdialogconfirmComponent } from './components/matdialogconfirm/matdialogconfirm.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     PostTableComponent,
     SinglePostComponent,
     PostFormComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MatdialogconfirmComponent
   ],
   imports: [
     BrowserModule,
