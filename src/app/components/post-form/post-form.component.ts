@@ -53,16 +53,18 @@ export class PostFormComponent implements OnInit {
   }
 
   onupdtae() {
-    let updateObj = this.signUpForm.value
-    console.log(updateObj)
-    this._EmpService.updatePost(updateObj, this.postid)
-      .subscribe((res) => {
-        console.log(res)
-        this._router.navigate(['home'])
-        this._matsanck.matsancopen(`${updateObj.name} is updated`)
+    if (this.signUpForm.valid) {
+      let updateObj = this.signUpForm.value
+      console.log(updateObj)
+      this._EmpService.updatePost(updateObj, this.postid)
+        .subscribe((res) => {
+          console.log(res)
+          this._router.navigate(['home'])
+          this._matsanck.matsancopen(`${updateObj.name} is updated`)
 
 
-      })
+        })
+    }
   }
   CreateSignUpForm() {
     this.signUpForm = new FormGroup({
@@ -94,7 +96,7 @@ export class PostFormComponent implements OnInit {
       state: new FormControl('Maharashtra', [Validators.required]),
       city: new FormControl('Maharashtra', [Validators.required]),
 
-      // city: new FormControl('jaipur', [Validators.required]),
+      // city: new FormControl('latur', [Validators.required]),
       pincode: new FormControl(null, [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)]),
 
       gender: new FormControl(null),
