@@ -279,7 +279,7 @@
               <div class="text-right">
                 <button class="btn btn-primary" *ngIf="!isEditMode" [disabled]="signUpForm.invalid"
                   type="submit">AddPost</button>
-                <button class="btn btn-primary" *ngIf="isEditMode" (click)="onupdtae()"
+                <button class="btn btn-primary" [disabled]="signUpForm.invalid" *ngIf="isEditMode" (click)="onupdtae()"
                   type="button">UpdatePost</button>
 
               </div>
