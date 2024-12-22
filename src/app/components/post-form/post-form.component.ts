@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Icountry } from 'src/app/const/countr';
+import { cities } from 'src/app/const/city';
+import { City, Icountry, Istate } from 'src/app/const/countr';
 import { COUNTRIES_META_DATA } from 'src/app/const/country';
+import { indianStates } from 'src/app/const/state';
 import { VALIDATION_PATTERNS } from 'src/app/const/valid';
 import { CustomRegex } from 'src/app/const/validators';
 import { EmployerService } from 'src/app/services/employer.service';
@@ -19,6 +21,8 @@ export class PostFormComponent implements OnInit {
 
   signUpForm !: FormGroup;
   CountryInfo: Array<Icountry> = [];
+  state: Array<Istate> = []
+  city: Array<City> = []
   postid!: string
   isEditMode: boolean = false
 
@@ -31,6 +35,8 @@ export class PostFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.CountryInfo = COUNTRIES_META_DATA;
+    this.state = indianStates
+    this.city = cities
     this.CreateSignUpForm();
     this.postid = this._act.snapshot.params['postId']
     if (this.postid) {
@@ -54,35 +60,42 @@ export class PostFormComponent implements OnInit {
         console.log(res)
         this._router.navigate(['home'])
         this._matsanck.matsancopen(`${updateObj.name} is updated`)
-     
+
 
       })
   }
   CreateSignUpForm() {
     this.signUpForm = new FormGroup({
-      name: new FormControl(null, [Validators.required,
-      Validators.pattern(CustomRegex.username),
-      Validators.minLength(255),
-      Validators.maxLength(30),
-        // NoSpaceValidator.noSpace
-      ]),
-      client: new FormControl(null, [Validators.required,
-      Validators.pattern(CustomRegex.client),
-      Validators.minLength(15),
-      Validators.maxLength(18),
-        // NoSpaceValidator.noSpace 
-      ]),
-      code: new FormControl(null, [Validators.required, Validators.pattern(VALIDATION_PATTERNS.code)]),
+      name: new FormControl(null, [
+        Validators.required, // Field is required
+        Validators.minLength(3), // Minimum length of 3 characters
+        Validators.maxLength(50), // Maximum length of 50 characters
+        Validators.pattern(/^[a-zA-Z\s]+$/), // Only alphabets and spaces
+      ],),
+      client: new FormControl(null,
+
+        [
+          Validators.required, // Field is required
+          Validators.minLength(3), // Minimum length of 3 characters
+          Validators.maxLength(50), // Maximum length of 50 characters
+          Validators.pattern(/^[a-zA-Z\s]+$/), // Only alphabets and spaces
+        ],
+      ),
+      code: new FormControl(null, [Validators.required]),//Validators.pattern(VALIDATION_PATTERNS.code)
 
       email: new FormControl(null, [Validators.required, Validators.pattern(CustomRegex.email)]),
-      mobileno: new FormControl(null, [Validators.required]),
-      gstno: new FormControl(null, [Validators.required, Validators.pattern(VALIDATION_PATTERNS.gstno)]),
-      panno: new FormControl(null, [Validators.required, Validators.pattern(VALIDATION_PATTERNS.panno)]),
+      mobileno: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
+      gstno: new FormControl(null, [Validators.required, Validators.pattern(
+        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/
+      )]),//Validators.pattern(VALIDATION_PATTERNS.gstno)
+      panno: new FormControl(null, [Validators.required, Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)]),//Validators.pattern(VALIDATION_PATTERNS.panno)
       address: new FormControl(null, [Validators.required, Validators.maxLength(255)]),
-      country: new FormControl(null, [Validators.required]),
-      state: new FormControl(null, [Validators.required]),
-      city: new FormControl(null, [Validators.required]),
-      pincode: new FormControl(null, [Validators.required]),
+      country: new FormControl('India', [Validators.required]),
+      state: new FormControl('Maharashtra', [Validators.required]),
+      city: new FormControl('Maharashtra', [Validators.required]),
+
+      // city: new FormControl('latur', [Validators.required]),
+      pincode: new FormControl(null, [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)]),
 
       gender: new FormControl(null),
       skills: new FormArray([new FormControl(null), new FormControl(null)]),
@@ -95,17 +108,19 @@ export class PostFormComponent implements OnInit {
   onSignUp() {
     console.log(this.signUpForm);
     // console.log(this.signUpForm.value);
+    if (this.signUpForm.valid) {
 
-    let post = this.signUpForm.value
-    this.signUpForm.reset()
-    this._EmpService.ceratepost(post)
-      .subscribe((res) => {
-        console.log('post creted succesfully')
+      let post = this.signUpForm.value
+      this.signUpForm.reset()
+      this._EmpService.ceratepost(post)
+        .subscribe((res) => {
+          console.log('post creted succesfully')
 
-        this._router.navigate(['home'])
-        this._matsanck.matsancopen(`${post.name} is created`)
+          this._router.navigate(['home'])
+          this._matsanck.matsancopen(`${post.name} is created`)
 
-      })
+        })
+    }
 
   };
 
@@ -123,10 +138,10 @@ export class PostFormComponent implements OnInit {
     return this.signUpForm.get("pincode") as FormControl
   }
   get getstate() {
-    return this.signUpForm.get("pincode") as FormControl
+    return this.signUpForm.get("state") as FormControl
   }
   get getcity() {
-    return this.signUpForm.get("pincode") as FormControl
+    return this.signUpForm.get("city") as FormControl
   }
   getcountry() {
     return this.signUpForm.get("country") as FormControl
