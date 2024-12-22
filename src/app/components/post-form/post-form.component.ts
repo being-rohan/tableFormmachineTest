@@ -94,7 +94,7 @@ export class PostFormComponent implements OnInit {
       state: new FormControl('Maharashtra', [Validators.required]),
       city: new FormControl('Maharashtra', [Validators.required]),
 
-      // city: new FormControl('latur', [Validators.required]),
+      // city: new FormControl('jaipur', [Validators.required]),
       pincode: new FormControl(null, [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)]),
 
       gender: new FormControl(null),
