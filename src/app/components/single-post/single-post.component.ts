@@ -46,7 +46,7 @@ export class SinglePostComponent implements OnInit {
         this._Ser.ondelete(this.postid).subscribe((res) => {
           console.log(res);
           this._router1.navigate(['/home']);
-          this._matsanck.matsancopen(` See the Full deatils of ${this.postObj.name} `)
+          this._matsanck.matsancopen(`Sucessfully ${this.postObj.name} deleted `)
 
         });
       }
